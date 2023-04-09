@@ -1,7 +1,6 @@
 import re
-from bs4.diagnose import diagnose
+# from bs4.diagnose import diagnose
 import requests
-import lxml
 from bs4 import BeautifulSoup
 from bs4 import SoupStrainer
 
@@ -19,7 +18,7 @@ for i in range(1, 37):
     response = requests.get(url=URL.replace('page_no', str(i)), headers=headers)
 
     articles = SoupStrainer("article", class_=re.compile("list-item"))
-    soup = BeautifulSoup(response.text, 'lxml', parse_only=articles)
+    soup = BeautifulSoup(response.text, 'html.parser', parse_only=articles)
     # print(soup.prettify())
     articles = soup.find_all('article')
 
