@@ -4,7 +4,7 @@ import requests
 from bs4 import BeautifulSoup
 from bs4 import SoupStrainer
 
-file = open('data.csv', 'a', encoding='windows-1252')
+file = open('data1.csv', 'a', encoding='windows-1252')
 file.write("rating,header,customer_country,date,review,Aircraft,Type of Traveller,Seat Type,Route,Date Flown,Seat Comfort,Cabin Staff Service,Food & Beverages,Inflight Entertainment,Ground Service,Wifi & Connectivity,Value For Money,Recommended\n")
 
 URL = "https://www.airlinequality.com/airline-reviews/british-airways/page/page_no/?sortby=post_date%3ADesc&pagesize=100"
@@ -32,17 +32,17 @@ for i in range(1, 37):
         except IndexError:
             customer_country = None
             date = None
-        # try:
-        #     review = article.find('div', class_="text_content").get_text().split(" |")[1].strip()
-        # except IndexError:
-        #     review = article.find('div', class_="text_content").get_text().strip()
+        try:
+            review = article.find('div', class_="text_content").get_text().split(" |")[1].strip()
+        except IndexError:
+            review = article.find('div', class_="text_content").get_text().strip()
 
         my_dict = {
             "rating": rating,
             "header": header,
             "customer_country": customer_country,
             "date": date,
-            # "review": '"'+review+'"',
+            "review": '"'+review+'"',
             "review": None,
             "Aircraft": None,
             "Type Of Traveller": None,
